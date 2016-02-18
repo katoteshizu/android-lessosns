@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Androidlessons.iml" filepath="$PROJECT_DIR$/Androidlessons.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0001androidstudy/p0001androidstudy.iml" filepath="$PROJECT_DIR$/p0001androidstudy/p0001androidstudy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0031firstproject/p0031firstproject.iml" filepath="$PROJECT_DIR$/p0031firstproject/p0031firstproject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0041basicviews/p0041basicviews.iml" filepath="$PROJECT_DIR$/p0041basicviews/p0041basicviews.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0051layoutfiles/p0051layoutfiles.iml" filepath="$PROJECT_DIR$/p0051layoutfiles/p0051layoutfiles.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0061layouts/p0061layouts.iml" filepath="$PROJECT_DIR$/p0061layouts/p0061layouts.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0072layoutprop/p0072layoutprop.iml" filepath="$PROJECT_DIR$/p0072layoutprop/p0072layoutprop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0081viewbyid/p0081viewbyid.iml" filepath="$PROJECT_DIR$/p0081viewbyid/p0081viewbyid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0091onclickbuttons/p0091onclickbuttons.iml" filepath="$PROJECT_DIR$/p0091onclickbuttons/p0091onclickbuttons.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0101listener/p0101listener.iml" filepath="$PROJECT_DIR$/p0101listener/p0101listener.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0102activitylistener/p0102activitylistener.iml" filepath="$PROJECT_DIR$/p0102activitylistener/p0102activitylistener.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0111resvalues/p0111resvalues.iml" filepath="$PROJECT_DIR$/p0111resvalues/p0111resvalues.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0121logandmess/p0121logandmess.iml" filepath="$PROJECT_DIR$/p0121logandmess/p0121logandmess.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0131menusimple/p0131menusimple.iml" filepath="$PROJECT_DIR$/p0131menusimple/p0131menusimple.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0141menuadv/p0141menuadv.iml" filepath="$PROJECT_DIR$/p0141menuadv/p0141menuadv.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0151contextmenu/p0151contextmenu.iml" filepath="$PROJECT_DIR$/p0151contextmenu/p0151contextmenu.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0161dynamiclayout/p0161dynamiclayout.iml" filepath="$PROJECT_DIR$/p0161dynamiclayout/p0161dynamiclayout.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0171dynamiclayout2/p0171dynamiclayout2.iml" filepath="$PROJECT_DIR$/p0171dynamiclayout2/p0171dynamiclayout2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0181dynamiclayout3/p0181dynamiclayout3.iml" filepath="$PROJECT_DIR$/p0181dynamiclayout3/p0181dynamiclayout3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0191simplecalculator/p0191simplecalculator.iml" filepath="$PROJECT_DIR$/p0191simplecalculator/p0191simplecalculator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0201simpleanimation/p0201simpleanimation.iml" filepath="$PROJECT_DIR$/p0201simpleanimation/p0201simpleanimation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0211twoactivity/p0211twoactivity.iml" filepath="$PROJECT_DIR$/p0211twoactivity/p0211twoactivity.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0231oneactivitystate/p0231oneactivitystate.iml" filepath="$PROJECT_DIR$/p0231oneactivitystate/p0231oneactivitystate.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0241twoactivitystate/p0241twoactivitystate.iml" filepath="$PROJECT_DIR$/p0241twoactivitystate/p0241twoactivitystate.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0261intentfilter/p0261intentfilter.iml" filepath="$PROJECT_DIR$/p0261intentfilter/p0261intentfilter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0271getintentaction/p0271getintentaction.iml" filepath="$PROJECT_DIR$/p0271getintentaction/p0271getintentaction.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0281intentextras/p0281intentextras.iml" filepath="$PROJECT_DIR$/p0281intentextras/p0281intentextras.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0291simpleactivityresult/p0291simpleactivityresult.iml" filepath="$PROJECT_DIR$/p0291simpleactivityresult/p0291simpleactivityresult.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0301activityresult/p0301activityresult.iml" filepath="$PROJECT_DIR$/p0301activityresult/p0301activityresult.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0311simpleintents/p0311simpleintents.iml" filepath="$PROJECT_DIR$/p0311simpleintents/p0311simpleintents.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0321simplebrowser/p0321simplebrowser.iml" filepath="$PROJECT_DIR$/p0321simplebrowser/p0321simplebrowser.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0331sharedpreferences/p0331sharedpreferences.iml" filepath="$PROJECT_DIR$/p0331sharedpreferences/p0331sharedpreferences.iml" />
+    </modules>
+  </component>
+</project>

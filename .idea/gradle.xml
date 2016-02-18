@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="LOCAL" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleHome" value="C:\Program Files\Android\Android Studio\gradle\gradle-2.8" />
+        <option name="gradleJvm" value="1.8" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/p0001androidstudy" />
+            <option value="$PROJECT_DIR$/p0031firstproject" />
+            <option value="$PROJECT_DIR$/p0041basicviews" />
+            <option value="$PROJECT_DIR$/p0051layoutfiles" />
+            <option value="$PROJECT_DIR$/p0061layouts" />
+            <option value="$PROJECT_DIR$/p0072layoutprop" />
+            <option value="$PROJECT_DIR$/p0081viewbyid" />
+            <option value="$PROJECT_DIR$/p0091onclickbuttons" />
+            <option value="$PROJECT_DIR$/p0101listener" />
+            <option value="$PROJECT_DIR$/p0102activitylistener" />
+            <option value="$PROJECT_DIR$/p0111resvalues" />
+            <option value="$PROJECT_DIR$/p0121logandmess" />
+            <option value="$PROJECT_DIR$/p0131menusimple" />
+            <option value="$PROJECT_DIR$/p0141menuadv" />
+            <option value="$PROJECT_DIR$/p0151contextmenu" />
+            <option value="$PROJECT_DIR$/p0161dynamiclayout" />
+            <option value="$PROJECT_DIR$/p0171dynamiclayout2" />
+            <option value="$PROJECT_DIR$/p0181dynamiclayout3" />
+            <option value="$PROJECT_DIR$/p0191simplecalculator" />
+            <option value="$PROJECT_DIR$/p0201simpleanimation" />
+            <option value="$PROJECT_DIR$/p0211twoactivity" />
+            <option value="$PROJECT_DIR$/p0231oneactivitystate" />
+            <option value="$PROJECT_DIR$/p0241twoactivitystate" />
+            <option value="$PROJECT_DIR$/p0261intentfilter" />
+            <option value="$PROJECT_DIR$/p0271getintentaction" />
+            <option value="$PROJECT_DIR$/p0281intentextras" />
+            <option value="$PROJECT_DIR$/p0291simpleactivityresult" />
+            <option value="$PROJECT_DIR$/p0301activityresult" />
+            <option value="$PROJECT_DIR$/p0311simpleintents" />
+            <option value="$PROJECT_DIR$/p0321simplebrowser" />
+            <option value="$PROJECT_DIR$/p0331sharedpreferences" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

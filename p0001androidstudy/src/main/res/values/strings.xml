@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Android Study</string>
+    <string name="message_text">Person details:</string>
+    <string name="yes">Save</string>
+    <string name="no">Cancel</string>
+    <string name="add">Add</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="menu_title">What do your wish?</string>
+</resources>
