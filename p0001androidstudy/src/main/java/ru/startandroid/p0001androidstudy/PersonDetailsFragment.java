@@ -1,7 +1,6 @@
 package ru.startandroid.p0001androidstudy;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -23,14 +22,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
 
-import ru.startandroid.p0001androidstudy.bitmap.BitmapUtility;
 import ru.startandroid.p0001androidstudy.model.Person;
 import utilities.Utilities;
 
@@ -42,20 +34,19 @@ public class PersonDetailsFragment extends DialogFragment implements View.OnClic
 
     private final static String TAG = PersonDetailsFragment.class.getSimpleName();
     private static final int CAMERA_REQUEST = 1888;
-    private static final int maxImageSize = 100;
     public final static String PREVIEW_PATH = "preview";
     @Nullable
     private PersonListener personListener;
     @Nullable
     private Person person;
 
-
     Button buttonSave;
     Button buttonCancel;
     EditText personEditText;
     EditText personEditEmail;
     ImageView personEditFace;
-    Context context;
+    @Nullable
+    private Bitmap photo;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -134,11 +125,20 @@ public class PersonDetailsFragment extends DialogFragment implements View.OnClic
         switch (v.getId()) {
             case R.id.btnYes:
 
-                CharSequence email = personEditEmail.getText().toString();
+                final CharSequence email = personEditEmail.getText().toString();
                 String personName = personEditText.getText().toString();
 
                 if (personListener != null && person != null && isEmailValid(email) && (personName.length() != 0)) {
-                    personListener.onPersonUpdated(new Person(person.id, person.fileName, personEditText.getText().toString(), email.toString()));
+//                    personListener.onPersonUpdated(new Person(person.id, person.fileName, personEditText.getText().toString(), email.toString()));
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            SavePersonTask personToSave = new SavePersonTask(getContext(),
+                                    person.id, personEditText.getText().toString(),
+                                    email.toString(), person.fileName, photo);
+                            personListener.onPersonUpdated(personToSave.getPerson());
+                        }
+                    }).start();
                     dismiss();
                 } else {
                     if (personEditText.getText().length() == 0) {
@@ -165,78 +165,10 @@ public class PersonDetailsFragment extends DialogFragment implements View.OnClic
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            photo = (Bitmap) data.getExtras().get("data");
             personEditFace.setImageBitmap(photo);
-
-            File f = new File(getContext().getCacheDir(), "tempFile.png");
-            FileOutputStream fos = null;
-            try {
-                fos = new FileOutputStream(f);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            if (f.exists() && photo != null) {
-                photo.compress(Bitmap.CompressFormat.PNG, 100, fos);
-            }
-            if (fos != null) {
-                try {
-                    fos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            addPhoto(f);
-            if (f.exists()) {
-                f.delete();
-            }
-
         }
     }
-
-    private void addPhoto(File photo) {
-        context = getContext();
-        File folder = context.getFilesDir();
-        File previews = new File(folder, PREVIEW_PATH);
-
-        if (!previews.exists()) {
-            if (!previews.mkdirs()) {
-                Utilities.logE(PersonDetailsFragment.class.getSimpleName(), "ALARM!!!");
-            }
-        }
-
-        UUID uuid = UUID.randomUUID();
-        String filePath = null;
-        if (person != null) {
-            filePath = previews.getAbsolutePath() + File.separator + person.name + "-" + uuid.toString() + ".png";
-            File faceFile = new File(filePath);
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    BitmapUtility.getImageFile(context, 0, photo, faceFile);
-                }
-            }).start();
-
-            removeOldPhoto(person.id, person.fileName);
-            person.fileName = filePath;
-        }
-    }
-
-    private void removeOldPhoto(long id, String fileName) {
-        List<Person> listPersons = getTestApplication().getPersonDao().getAllPersons();
-        int matchCounter = 0;
-        for (Person personItem : listPersons) {
-            if (fileName.equals(personItem.fileName) && personItem.id != id) {
-                matchCounter++;
-            }
-        }
-        if ((matchCounter == 0) && (fileName != null)) {
-            File fileToDelete = new File(fileName);
-            if (!fileToDelete.delete()) {
-                Utilities.logE(PersonDetailsFragment.class.getSimpleName(), "File couldn't be deleted.");
-            }
-        }
-    }
-
 
     private boolean isEmailValid(CharSequence email) {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
@@ -244,25 +176,15 @@ public class PersonDetailsFragment extends DialogFragment implements View.OnClic
 
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
-//        Utilities.logD(TAG, "onDismiss");
     }
 
     public void onCancel(DialogInterface dialog) {
         super.onCancel(dialog);
-//        Utilities.logD(TAG, "onCancel");
     }
 
     public void show(Person person, PersonListener personListener, FragmentManager manager, String tag) {
         this.personListener = personListener;
         this.person = person;
         super.show(manager, tag);
-    }
-
-    public TestApplication getTestApplication() {
-        return getAppActivity().getTestApplication();
-    }
-
-    public AppActivity getAppActivity() {
-        return (AppActivity) getActivity();
     }
 }

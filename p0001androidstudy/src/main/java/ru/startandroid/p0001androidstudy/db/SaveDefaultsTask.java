@@ -2,23 +2,10 @@ package ru.startandroid.p0001androidstudy.db;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.util.Log;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.FutureTarget;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import ru.startandroid.p0001androidstudy.R;
 import ru.startandroid.p0001androidstudy.bitmap.BitmapUtility;
@@ -73,7 +60,7 @@ public class SaveDefaultsTask {
             String filePath = previews.getAbsolutePath() + File.separator + faceFileName + ".png";
             File faceFile = new File(filePath);
 
-            BitmapUtility.getImageFile(context, faceID, null, faceFile);
+            BitmapUtility.convertImage(context, faceID, null, faceFile);
 
             Person newPerson = new Person(PersonDao.NULL_LONG, filePath, person.name, person.email);
             personDao.save(newPerson);

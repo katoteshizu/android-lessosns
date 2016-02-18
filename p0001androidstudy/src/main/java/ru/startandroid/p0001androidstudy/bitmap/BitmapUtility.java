@@ -21,6 +21,8 @@ import utilities.Utilities;
 public class BitmapUtility {
 
     private final static String TAG = BitmapUtility.class.getSimpleName();
+    private final static int mWidth = 100;
+    private final static int mHeight = 150;
 
     // convert from bitmap to byte array
     public static byte[] getBytes(Bitmap bitmap) {
@@ -69,17 +71,17 @@ public class BitmapUtility {
         return Bitmap.createScaledBitmap(image, width, height, true);
     }
 
-    public static File getImageFile(Context context, int faceID, File inputFile, File outputFile) {
+    public static void convertImage(Context context, int faceID, File inputFile, File outputFile) {
         Bitmap tmpBitmap;
         Bitmap resizedBitmap;
         if (!outputFile.exists()) {
             try {
                 if (faceID > 0 && inputFile == null) {
-                    tmpBitmap = Glide.with(context).load(faceID).asBitmap().centerCrop().into(100, 150).get();
+                    tmpBitmap = Glide.with(context).load(faceID).asBitmap().centerCrop().into(mWidth, mHeight).get();
                 } else {
-                    tmpBitmap = Glide.with(context).load(inputFile).asBitmap().centerCrop().into(100, 150).get();
+                    tmpBitmap = Glide.with(context).load(inputFile).asBitmap().centerCrop().into(mWidth, mHeight).get();
                 }
-                resizedBitmap = Bitmap.createBitmap(tmpBitmap, 0, 0, 100, 150);
+                resizedBitmap = Bitmap.createBitmap(tmpBitmap, 0, 0, mWidth, mHeight);
                 FileOutputStream fileOutput = new FileOutputStream(outputFile);
                 resizedBitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutput);
                 fileOutput.close();
@@ -89,6 +91,6 @@ public class BitmapUtility {
         } else {
             Utilities.logW(TAG, "File already exists.");
         }
-        return outputFile;
+//        return outputFile;
     }
 }
