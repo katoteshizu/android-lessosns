@@ -1,10 +1,15 @@
 package ru.startandroid.p0001androidstudy;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
@@ -45,12 +50,16 @@ public class PersonDetailsFragment extends DialogFragment implements View.OnClic
     EditText personEditText;
     EditText personEditEmail;
     ImageView personEditFace;
+    ProgressDialog saveDialog;
+    Context context;
+    Resources resources;
     @Nullable
     private Bitmap photo;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.details_dialogue, null);
+
         long start = System.currentTimeMillis();
         if (person != null) {
             if (person.name.isEmpty()) {
@@ -64,6 +73,11 @@ public class PersonDetailsFragment extends DialogFragment implements View.OnClic
 
             personEditFace = (ImageView) v.findViewById(R.id.ivFace);
             personEditFace.setOnClickListener(this);
+
+            saveDialog = new ProgressDialog(getContext());
+            context = getContext();
+            resources = context.getResources();
+            saveDialog.setMessage(resources.getString(R.string.saving_dialog_text));
 
             if (person.fileName != null && !person.fileName.isEmpty()) {
                 File faceFile = new File(person.fileName);
@@ -129,14 +143,26 @@ public class PersonDetailsFragment extends DialogFragment implements View.OnClic
                 String personName = personEditText.getText().toString();
 
                 if (personListener != null && person != null && isEmailValid(email) && (personName.length() != 0)) {
-//                    personListener.onPersonUpdated(new Person(person.id, person.fileName, personEditText.getText().toString(), email.toString()));
+                    saveDialog.show();
+                    final long dialogStart = System.currentTimeMillis();
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            SavePersonTask personToSave = new SavePersonTask(getContext(),
-                                    person.id, personEditText.getText().toString(),
+                            PreparePersonTask preparePersonTask = new PreparePersonTask(getContext(),
+                                    getTestApplication(), person.id, personEditText.getText().toString(),
                                     email.toString(), person.fileName, photo);
-                            personListener.onPersonUpdated(personToSave.getPerson());
+                            final Person personToSave = preparePersonTask.getPerson();
+
+                            Handler handler = new Handler(Looper.getMainLooper());
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    personListener.onPersonUpdated(personToSave);
+                                    long dialogStop = System.currentTimeMillis();
+                                    Utilities.logD(TAG, "Save time ms: " + (dialogStop - dialogStart));
+                                    saveDialog.dismiss();
+                                }
+                            });
                         }
                     }).start();
                     dismiss();
@@ -151,7 +177,6 @@ public class PersonDetailsFragment extends DialogFragment implements View.OnClic
                         personEditEmail.setBackgroundResource(0);
                     Toast.makeText(getContext(), "Data is invalid", Toast.LENGTH_SHORT).show();
                 }
-
                 break;
             case R.id.btnNo:
                 dismiss();
@@ -186,5 +211,13 @@ public class PersonDetailsFragment extends DialogFragment implements View.OnClic
         this.personListener = personListener;
         this.person = person;
         super.show(manager, tag);
+    }
+
+    public TestApplication getTestApplication() {
+        return getAppActivity().getTestApplication();
+    }
+
+    public AppActivity getAppActivity() {
+        return (AppActivity) getActivity();
     }
 }

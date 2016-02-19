@@ -25,8 +25,8 @@ import ru.startandroid.p0001androidstudy.model.Person;
 
 public class PersonAdapter extends BaseAdapter {
 
-    public static final int IMAGE_WIDTH = 50;
-    public static final int IMAGE_HEIGHT = 100;
+    public static final int IMAGE_WIDTH = 100;
+    public static final int IMAGE_HEIGHT = 150;
     private LayoutInflater lInflater;
     private SparseArray<Person> persons = new SparseArray<>();
     private Context context;
@@ -88,9 +88,9 @@ public class PersonAdapter extends BaseAdapter {
                 File faceFile = new File(p.fileName);
                 if (faceFile.exists()) {
                     Glide.with(context).load(faceFile).override(IMAGE_WIDTH, IMAGE_HEIGHT).into(personFace);
-                } else Glide.with(context).load(R.drawable.no_img).override(IMAGE_WIDTH, IMAGE_HEIGHT).into(personFace);
+                } else Glide.with(context).load(R.drawable.no_img).override(IMAGE_WIDTH, IMAGE_HEIGHT).centerCrop().into(personFace);
             } else {
-                Glide.with(context).load(R.drawable.no_img).override(IMAGE_WIDTH, IMAGE_HEIGHT).into(personFace);
+                Glide.with(context).load(R.drawable.no_img).override(IMAGE_WIDTH, IMAGE_HEIGHT).centerCrop().into(personFace);
             }
         }
         return view;

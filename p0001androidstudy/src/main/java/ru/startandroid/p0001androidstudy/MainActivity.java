@@ -28,8 +28,6 @@ public class MainActivity extends AppActivity {
         lvMainList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Utilities.logD(TAG, "position: " + position + " id: " + id);
-//                Toast.makeText(getApplicationContext(), "position: " + position + " id: "  + id, Toast.LENGTH_SHORT).show();
                 switch (position) {
                     case 0:
                         Intent addressIntent = new Intent(getApplicationContext(), AddressListActivity.class);

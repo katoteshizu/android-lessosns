@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sPref = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();
         ed.putString(SAVED_TEXT, etText.getText().toString());
-        ed.commit();
+        ed.apply();
         Toast.makeText(this, "Text saved", Toast.LENGTH_SHORT).show();
     }
 

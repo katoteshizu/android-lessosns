@@ -35,6 +35,10 @@
       <module fileurl="file://$PROJECT_DIR$/p0311simpleintents/p0311simpleintents.iml" filepath="$PROJECT_DIR$/p0311simpleintents/p0311simpleintents.iml" />
       <module fileurl="file://$PROJECT_DIR$/p0321simplebrowser/p0321simplebrowser.iml" filepath="$PROJECT_DIR$/p0321simplebrowser/p0321simplebrowser.iml" />
       <module fileurl="file://$PROJECT_DIR$/p0331sharedpreferences/p0331sharedpreferences.iml" filepath="$PROJECT_DIR$/p0331sharedpreferences/p0331sharedpreferences.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0341simplesqlite/p0341simplesqlite.iml" filepath="$PROJECT_DIR$/p0341simplesqlite/p0341simplesqlite.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0361sqlitequery/p0361sqlitequery.iml" filepath="$PROJECT_DIR$/p0361sqlitequery/p0361sqlitequery.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0371sqliteinnerjoin/p0371sqliteinnerjoin.iml" filepath="$PROJECT_DIR$/p0371sqliteinnerjoin/p0371sqliteinnerjoin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0381sqlitetransaction/p0381sqlitetransaction.iml" filepath="$PROJECT_DIR$/p0381sqlitetransaction/p0381sqlitetransaction.iml" />
     </modules>
   </component>
 </project>

@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.List;
 import java.util.UUID;
 
 import ru.startandroid.p0001androidstudy.bitmap.BitmapUtility;
@@ -15,8 +16,8 @@ import utilities.Utilities;
 /**
  * @author by Andrey on 2/18/2016.
  */
-public class SavePersonTask {
-    private static final String TAG = SavePersonTask.class.getSimpleName();
+public class PreparePersonTask {
+    private static final String TAG = PreparePersonTask.class.getSimpleName();
     private static final String PREVIEW_PATH = "preview";
 
     private long personID;
@@ -24,11 +25,13 @@ public class SavePersonTask {
     private String personName;
     private String personEmail;
     private Bitmap personPhoto;
+    private TestApplication testApplication;
 
     private Context context;
 
-    public SavePersonTask(Context context, long id, String name, String email, String imagePath, Bitmap photo) {
+    public PreparePersonTask(Context context, TestApplication testApplication, long id, String name, String email, String imagePath, Bitmap photo) {
         this.context = context;
+        this.testApplication = testApplication;
         this.personID = id;
         this.personImagePath = imagePath;
         this.personName = name;
@@ -37,14 +40,14 @@ public class SavePersonTask {
     }
 
     public Person getPerson() {
-        if (personImagePath == null || personImagePath.isEmpty()) {
+        if (personPhoto != null) {
             personImagePath = getImagePath(personPhoto);
         }
         return new Person(personID, personImagePath, personName, personEmail);
     }
 
     private String getImagePath(Bitmap photo) {
-        String filePath = null;
+        String filePath;
         File folder = context.getFilesDir();
         File previews = new File(folder, PREVIEW_PATH);
 
@@ -71,38 +74,39 @@ public class SavePersonTask {
         }
 
 
-            BitmapUtility.convertImage(context, 0, tempFaceFile, faceFile);
+        BitmapUtility.convertImage(context, 0, tempFaceFile, faceFile);
 
-//            removeOldPhoto(person.id, person.fileName);
+        removeOldPhoto(personID, personImagePath);
 
+        if (!tempFaceFile.delete()) {
+            Utilities.logE(TAG, "Temp image file couldn't be deleted.");
+        }
 
+        if (faceFile.exists()) {
             personImagePath = filePath;
-//        }
+        } else {
+            personImagePath = null;
+            Utilities.logE(TAG, "Setting image path failed.");
+        }
+
         return filePath;
     }
 
 
-//    private void removeOldPhoto(long id, String fileName) {
-//        List<Person> listPersons = getTestApplication().getPersonDao().getAllPersons();
-//        int matchCounter = 0;
-//        for (Person personItem : listPersons) {
-//            if (fileName.equals(personItem.fileName) && personItem.id != id) {
-//                matchCounter++;
-//            }
-//        }
-//        if ((matchCounter == 0) && (fileName != null)) {
-//            File fileToDelete = new File(fileName);
-//            if (!fileToDelete.delete()) {
-//                Utilities.logE(TAG, "File couldn't be deleted.");
-//            }
-//        }
-//    }
+    private void removeOldPhoto(long id, String fileName) {
+        List<Person> listPersons = testApplication.getPersonDao().getAllPersons();
+        int matchCounter = 0;
+        for (Person personItem : listPersons) {
+            if (fileName.equals(personItem.fileName) && personItem.id != id) {
+                matchCounter++;
+            }
+        }
+        if ((matchCounter == 0) && (fileName != null)) {
+            File fileToDelete = new File(fileName);
+            if (!fileToDelete.delete()) {
+                Utilities.logE(TAG, "File couldn't be deleted.");
+            }
+        }
+    }
 
-//    public TestApplication getTestApplication() {
-//        return getAppActivity().getTestApplication();
-//    }
-//
-//    public AppActivity getAppActivity() {
-//        return (AppActivity) getActivity();
-//    }
 }
