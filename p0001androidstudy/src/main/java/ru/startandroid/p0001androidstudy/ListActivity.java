@@ -33,6 +33,7 @@ public abstract class ListActivity<P> extends AppActivity {
         setContentView(R.layout.listitems);
         itemsList = (ListView) findViewById(R.id.itemsList);
         adapter = getAdapter(getAllData());
+        itemsList.setAdapter(adapter);
     }
 
     @CallSuper
