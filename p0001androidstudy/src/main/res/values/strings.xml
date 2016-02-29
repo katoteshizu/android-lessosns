@@ -8,4 +8,6 @@
     <string name="delete">Delete</string>
     <string name="menu_title">What do your wish?</string>
     <string name="saving_dialog_text">Saving…</string>
+    <string name="action_search">Search</string>
+    <string name="action_clear_search">Clear</string>
 </resources>

@@ -77,6 +77,13 @@ public class PersonDao {
         return extractDataFromCursor(cursor);
     }
 
+    @NonNull
+    public List<Person> searchPersons(String pattern){
+        String query = "SELECT * FROM " + TABLE + " WHERE " + PERSON_NAME + " LIKE '%" + pattern + "%'";
+        Cursor cursor = sqLiteDatabase.rawQuery(query, null);
+        return extractDataFromCursor(cursor);
+    }
+
     private long insertOrReplace(@NonNull Person person) {
         long id;
         sqLiteDatabase.beginTransaction();

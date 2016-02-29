@@ -1,44 +1,37 @@
 package ru.startandroid.p0001androidstudy;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.BaseAdapter;
 import android.widget.Toast;
 
+import java.util.List;
+
 import ru.startandroid.p0001androidstudy.model.Address;
+import utilities.Utilities;
 
 /**
  * @author by Andrey on 2/15/2016.
  */
-public class AddressListActivity extends AppActivity {
-    private AddressAdapter addressAdapter;
-    protected ListView lvAddressList;
+public class AddressListActivity extends ListActivity<Address> {
+
+    private final static String TAG = AddressListActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.listitems);
 
-        lvAddressList = (ListView) findViewById(R.id.itemsList);
-
-        addressAdapter = new AddressAdapter(this, getTestApplication().getAddressDao().getAllAddresses());
-        lvAddressList.setAdapter(addressAdapter);
-
-        lvAddressList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        itemsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 Address selectedAddress = (Address) parent.getAdapter().getItem(position);
-
-                AddressDetailsFragment stateDetailsDialogue = new AddressDetailsFragment();
-
-                stateDetailsDialogue.show(selectedAddress, addressListener, getSupportFragmentManager(), "stateDetailsDialogue");
+                handleOnAddNewEntry(selectedAddress);
             }
         });
-        lvAddressList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        itemsList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getApplicationContext(), "Long press at: " + position + " id: " + id, Toast.LENGTH_SHORT).show();
@@ -51,34 +44,57 @@ public class AddressListActivity extends AppActivity {
         });
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.actionbarmenu, menu);
-        return true;
+    @NonNull
+    @Override
+    protected List<Address> filterByCondition(String query) {
+        return getTestApplication().getAddressDao().searchAddresses(query);
     }
 
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.it_add:
-                AddressDetailsFragment stateDetailsDialogue = new AddressDetailsFragment();
-                stateDetailsDialogue.show(new Address(), addressListener, getSupportFragmentManager(), "stateDetailsDialogue");
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+    @NonNull
+    @Override
+    protected List<Address> getAllData() {
+        long start = System.currentTimeMillis();
+        List<Address> allAddresses = getTestApplication().getAddressDao().getAllAddresses();
+        long end = System.currentTimeMillis();
+        Utilities.logD(TAG, "Read all addresses from db: " + (end - start));
+        return allAddresses;
+    }
+
+    @Override
+    protected BaseAdapter getAdapter(List<Address> data) {
+        return new AddressAdapter(getApplicationContext(), data);
+    }
+
+    @Override
+    protected void handleOnAddNewEntry(@Nullable Address address) {
+        AddressDetailsFragment stateDetailsDialogue = new AddressDetailsFragment();
+        if (address == null) {
+            stateDetailsDialogue.show(new Address(), addressListener, getSupportFragmentManager(), "stateDetailsDialogue");
+        } else {
+            stateDetailsDialogue.show(address, addressListener, getSupportFragmentManager(), "stateDetailsDialogue");
         }
+    }
+
+    private AddressAdapter getAddressAdapter() {
+        return (AddressAdapter) adapter;
     }
 
     private final AddressListener addressListener = new AddressListener() {
         @Override
         public void onAddressUpdated(Address address) {
+            int position = (int) getAddressAdapter().getPosition(address);
             getTestApplication().getAddressDao().save(address);
-            addressAdapter.update(address);
-            addressAdapter.refreshAddresses(getTestApplication().getAddressDao().getAllAddresses());
-            lvAddressList.smoothScrollToPosition(addressAdapter.getCount() - 1);
+            getAddressAdapter().update(address);
+            getAddressAdapter().refreshAddresses(getTestApplication().getAddressDao().getAllAddresses());
+            if (position == -1) {
+                itemsList.smoothScrollToPosition(adapter.getCount() - 1);
+            }
         }
+
         @Override
-        public void onAddressDelete(Address address){
+        public void onAddressDelete(Address address) {
             getTestApplication().getAddressDao().remove(address);
-            addressAdapter.refreshAddresses(getTestApplication().getAddressDao().getAllAddresses());
+            getAddressAdapter().refreshAddresses(getTestApplication().getAddressDao().getAllAddresses());
         }
     };
 }

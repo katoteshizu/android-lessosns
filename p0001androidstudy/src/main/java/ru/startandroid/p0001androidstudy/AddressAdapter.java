@@ -86,4 +86,16 @@ public class AddressAdapter extends BaseAdapter {
     private Address getAddress(int position) {
         return ((Address) getItem(position));
     }
+
+    public long getPosition(Address person) {
+        int position = -1;
+        for (int i = 0, nsize = addresses.size(); i < nsize; i++) {
+            Address obj = addresses.valueAt(i);
+            if (obj.id == person.id) {
+                position = i;
+                break;
+            }
+        }
+        return position;
+    }
 }

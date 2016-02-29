@@ -4,7 +4,21 @@
     <item
         android:id="@+id/it_add"
         android:icon="@android:drawable/ic_menu_add"
-        app:showAsAction="always|withText"
+        app:showAsAction="ifRoom|withText"
         android:title="@string/add">
     </item>
+    <item android:id="@+id/action_search"
+        android:title="@string/action_search"
+        android:icon="@android:drawable/ic_menu_search"
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="android.support.v7.widget.SearchView" />
+    <group
+        android:id="@+id/group_clear_search">
+        <item
+            android:id="@+id/action_clear_search"
+            android:icon="@android:drawable/ic_menu_close_clear_cancel"
+            app:showAsAction="ifRoom|withText"
+            android:title="@string/action_clear_search">
+        </item>
+    </group>
 </menu>

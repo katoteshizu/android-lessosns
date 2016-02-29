@@ -1,11 +1,11 @@
 package ru.startandroid.p0001androidstudy;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.BaseAdapter;
 import android.widget.Toast;
 
 import java.util.List;
@@ -14,39 +14,21 @@ import ru.startandroid.p0001androidstudy.model.Person;
 import utilities.Utilities;
 
 /**
- * Created by Work on 2/4/2016.
+ * @author by Andrew on 2/4/2016.
  */
-public class PersonsListActivity extends AppActivity {
+public class PersonsListActivity extends ListActivity<Person> {
 
     private final static String TAG = PersonsListActivity.class.getSimpleName();
-
-    private PersonAdapter personAdapter;
-
-    protected ListView itemsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.listitems);
-
-        itemsList = (ListView) findViewById(R.id.itemsList);
-
-        long start = System.currentTimeMillis();
-        List<Person> allPersons = getTestApplication().getPersonDao().getAllPersons();
-        long end = System.currentTimeMillis();
-        Utilities.logD(TAG, "Get_ all persons: " + (end - start));
-        personAdapter = new PersonAdapter(this, allPersons);
-        itemsList.setAdapter(personAdapter);
 
         itemsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 Person selectedPerson = (Person) parent.getAdapter().getItem(position);
-
-                PersonDetailsFragment stateDetailsDialogue = new PersonDetailsFragment();
-
-                stateDetailsDialogue.show(selectedPerson, personListener, getSupportFragmentManager(), "stateDetailsDialogue");
+                handleOnAddNewEntry(selectedPerson);
             }
         });
         itemsList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -62,31 +44,50 @@ public class PersonsListActivity extends AppActivity {
         });
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.actionbarmenu, menu);
-        return true;
+    @NonNull
+    @Override
+    protected List<Person> filterByCondition(String query) {
+        return getTestApplication().getPersonDao().searchPersons(query);
     }
 
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.it_add:
-                PersonDetailsFragment stateDetailsDialogue = new PersonDetailsFragment();
-                stateDetailsDialogue.show(new Person(), personListener, getSupportFragmentManager(), "stateDetailsDialogue");
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+    @NonNull
+    @Override
+    protected List<Person> getAllData() {
+        long start = System.currentTimeMillis();
+        List<Person> allPersons = getTestApplication().getPersonDao().getAllPersons();
+        long end = System.currentTimeMillis();
+        Utilities.logD(TAG, "Get_ all persons: " + (end - start));
+        return allPersons;
+    }
+
+    @Override
+    protected BaseAdapter getAdapter(List<Person> data) {
+        return new PersonAdapter(getApplicationContext(), data);
+    }
+
+    @Override
+    protected void handleOnAddNewEntry(@Nullable Person person) {
+        PersonDetailsFragment stateDetailsDialogue = new PersonDetailsFragment();
+        if (person == null) {
+            stateDetailsDialogue.show(new Person(), personListener, getSupportFragmentManager(), "stateDetailsDialogue");
+        } else {
+            stateDetailsDialogue.show(person, personListener, getSupportFragmentManager(), "stateDetailsDialogue");
         }
+    }
+
+    private PersonAdapter getPersonAdapter() {
+        return (PersonAdapter) adapter;
     }
 
     private final PersonListener personListener = new PersonListener() {
         @Override
         public void onPersonUpdated(Person person) {
-            int position = (int) personAdapter.getPosition(person);
+            int position = (int) getPersonAdapter().getPosition(person);
             getTestApplication().getPersonDao().save(person);
-            personAdapter.update(person);
-            personAdapter.refreshPersons(getTestApplication().getPersonDao().getAllPersons());
+            getPersonAdapter().update(person);
+            getPersonAdapter().refreshPersons(getTestApplication().getPersonDao().getAllPersons());
             if (position == -1) {
-                itemsList.smoothScrollToPosition(personAdapter.getCount() - 1);
+                itemsList.smoothScrollToPosition(adapter.getCount() - 1);
             }
             Toast.makeText(getApplicationContext(), "Position: " + position, Toast.LENGTH_SHORT).show();
         }
@@ -94,7 +95,7 @@ public class PersonsListActivity extends AppActivity {
         @Override
         public void onPersonDelete(Person person) {
             getTestApplication().getPersonDao().remove(person);
-            personAdapter.refreshPersons(getTestApplication().getPersonDao().getAllPersons());
+            getPersonAdapter().refreshPersons(getTestApplication().getPersonDao().getAllPersons());
         }
     };
 }

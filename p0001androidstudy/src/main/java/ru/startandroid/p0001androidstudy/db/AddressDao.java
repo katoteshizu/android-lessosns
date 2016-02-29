@@ -143,4 +143,10 @@ public class AddressDao {
     }
 
 
+    @NonNull
+    public List<Address> searchAddresses(String pattern){
+        String query = "SELECT * FROM " + TABLE + " WHERE " + ADDRESS_STREET + " LIKE '%" + pattern + "%'";
+        Cursor cursor = sqLiteDatabase.rawQuery(query, null);
+        return extractDataFromCursor(cursor);
+    }
 }

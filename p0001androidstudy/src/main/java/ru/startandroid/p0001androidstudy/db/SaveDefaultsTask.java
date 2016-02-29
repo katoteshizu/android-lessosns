@@ -9,6 +9,7 @@ import java.util.List;
 
 import ru.startandroid.p0001androidstudy.R;
 import ru.startandroid.p0001androidstudy.bitmap.BitmapUtility;
+import ru.startandroid.p0001androidstudy.model.Address;
 import ru.startandroid.p0001androidstudy.model.Person;
 import utilities.Utilities;
 
@@ -20,6 +21,7 @@ public class SaveDefaultsTask {
     public final static String PREVIEW_PATH = "preview";
 
     private static final List<PersonDefaultData> personList;
+    private static final List<AddressDefaultData> addressList;
 
     static {
         personList = new LinkedList<>();
@@ -34,13 +36,24 @@ public class SaveDefaultsTask {
         personList.add(new PersonDefaultData(R.drawable.face_0002, "Novem", "qwerty@g.com"));
         personList.add(new PersonDefaultData(R.drawable.face_0003, "Decem", "qwerty@g.com"));
         personList.add(new PersonDefaultData(R.drawable.face_0004, "Undecim", "qwerty@g.com"));
+
+        addressList = new LinkedList<>();
+        addressList.add(new AddressDefaultData("Liberty", 14, 1));
+        addressList.add(new AddressDefaultData("Independency", 23, 2));
+        addressList.add(new AddressDefaultData("Lenina", 55, 3));
+        addressList.add(new AddressDefaultData("Sunset", 13, 4));
+        addressList.add(new AddressDefaultData("Mulholland", 8, 5));
+        addressList.add(new AddressDefaultData("Soho", 22, 6));
+
     }
 
     private final PersonDao personDao;
+    private final AddressDao addressDao;
     private final Context context;
 
-    public SaveDefaultsTask(PersonDao personDao, Context context) {
+    public SaveDefaultsTask(PersonDao personDao, AddressDao addressDao, Context context) {
         this.personDao = personDao;
+        this.addressDao = addressDao;
         this.context = context;
     }
 
@@ -65,6 +78,11 @@ public class SaveDefaultsTask {
             Person newPerson = new Person(PersonDao.NULL_LONG, filePath, person.name, person.email);
             personDao.save(newPerson);
         }
+
+        for (AddressDefaultData address : addressList){
+            Address newAddress = new Address(AddressDao.NULL_LONG, address.street, address.building, address.block);
+            addressDao.save(newAddress);
+        }
     }
 
     public static class PersonDefaultData {
@@ -76,6 +94,18 @@ public class SaveDefaultsTask {
             this.face = face;
             this.name = name;
             this.email = email;
+        }
+    }
+
+    public static class AddressDefaultData {
+        public String street;
+        public int building;
+        public int block;
+
+        public AddressDefaultData(String street, int building, int block) {
+            this.street = street;
+            this.building = building;
+            this.block = block;
         }
     }
 }

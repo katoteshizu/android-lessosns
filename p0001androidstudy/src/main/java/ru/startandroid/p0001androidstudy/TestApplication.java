@@ -29,7 +29,7 @@ public class TestApplication extends Application {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    saveDefaultsTask = new SaveDefaultsTask(personDao, TestApplication.this);
+                    saveDefaultsTask = new SaveDefaultsTask(personDao, addressDao, TestApplication.this);
                     saveDefaultsTask.saveDefaults();
                 }
             }).start();

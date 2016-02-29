@@ -35,6 +35,8 @@ public class DataBaseHelper extends SQLiteOpenDatabaseHelper {
 
         SQLFileHelper.executeRawResource(resources, R.raw.database, db);
 
+        setPragmaLikeCaseInsensitive(db, false);
+
     }
 
     @Override
@@ -56,5 +58,9 @@ public class DataBaseHelper extends SQLiteOpenDatabaseHelper {
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         super.onDowngrade(db, oldVersion, newVersion);
         Utilities.logD(TAG, "On downgrade database. oldVersion: " + oldVersion + " newVersion: " + newVersion);
+    }
+
+    public void setPragmaLikeCaseInsensitive(SQLiteDatabase db, boolean on){
+        db.execSQL("PRAGMA case_sensitive_like=" + (on ? "ON" : "OFF") + ";");
     }
 }
