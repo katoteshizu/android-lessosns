@@ -36,7 +36,7 @@ public class AddressDetailsFragment extends DialogFragment implements View.OnCli
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.details_dialogue, null);
+        View v = inflater.inflate(R.layout.adress_details_dialog, null);
 
         getDialog().setTitle("Address details");
 
@@ -51,11 +51,12 @@ public class AddressDetailsFragment extends DialogFragment implements View.OnCli
             addressEditStreet.setText(address.street, TextView.BufferType.EDITABLE);
 
             addressEditBuilding = (EditText) v.findViewById(R.id.edAddressBuilding);
-            addressEditBuilding.setText(address.building, TextView.BufferType.EDITABLE);
-
             addressEditBlock = (EditText) v.findViewById(R.id.edAddressBlock);
-            addressEditBlock.setText(address.block, TextView.BufferType.EDITABLE);
 
+            if (address.building != -1 && address.block != -1) {
+                addressEditBuilding.setText(String.valueOf(address.building), TextView.BufferType.EDITABLE);
+                addressEditBlock.setText(String.valueOf(address.block), TextView.BufferType.EDITABLE);
+            }
             addressEditStreet.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -118,10 +119,15 @@ public class AddressDetailsFragment extends DialogFragment implements View.OnCli
             case R.id.btnYes:
 
                 String street = addressEditStreet.getText().toString();
-                int building = Integer.parseInt(addressEditBuilding.getText().toString());
-                int block = Integer.parseInt(addressEditBlock.getText().toString());
+                int building, block;
+                if (addressEditBuilding.getText().length() != 0) {
+                    building = Integer.parseInt(addressEditBuilding.getText().toString());
+                } else building = 0;
+                if (addressEditBlock.getText().length() != 0) {
+                    block = Integer.parseInt(addressEditBlock.getText().toString());
+                } else block = 0;
 
-                if (addressListener != null && address != null && (street.length() != 0)) {
+                if (addressListener != null && address != null && (street.length() != 0) && building !=0 && block != 0) {
                     addressListener.onAddressUpdated(new Address(address.id, street, building, block));
                     dismiss();
                 } else {

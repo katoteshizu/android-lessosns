@@ -19,7 +19,7 @@ public class Address {
     }
 
     public Address() {
-        this.id = -1l;
+        this.id = AddressDao.NULL_LONG;
         this.street = "";
         this.building = -1;
         this.block = -1;

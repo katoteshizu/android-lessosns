@@ -50,7 +50,7 @@ public class AddressAdapter extends BaseAdapter {
         View view = convertView;
 
         if (view == null) {
-            view = lInflater.inflate(R.layout.itemrow, parent, false);
+            view = lInflater.inflate(R.layout.address_item, parent, false);
         }
 
         Address p = getAddress(position);
@@ -59,8 +59,8 @@ public class AddressAdapter extends BaseAdapter {
             TextView addressBuilding = (TextView) view.findViewById(R.id.tvAddressBuilding);
             TextView addressBlock = (TextView) view.findViewById(R.id.tvAddressBlock);
             addressStreet.setText(p.id + ": " + p.street);
-            addressBuilding.setText(p.building);
-            addressBlock.setText(p.block);
+            addressBuilding.setText(String.valueOf(p.building));
+            addressBlock.setText(String.valueOf(p.block));
         }
 
 

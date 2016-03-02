@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Android Study</string>
-    <string name="message_text">Person details:</string>
+    <string name="person_dialog_text">Person details:</string>
+    <string name="address_dialog_text">Address details:</string>
     <string name="yes">Save</string>
     <string name="no">Cancel</string>
     <string name="add">Add</string>
@@ -10,4 +11,7 @@
     <string name="saving_dialog_text">Saving…</string>
     <string name="action_search">Search</string>
     <string name="action_clear_search">Clear</string>
+    <string name="tv_address_street_label">Street</string>
+    <string name="tv_address_building_label">Building:</string>
+    <string name="tv_address_block_label">Block:</string>
 </resources>
