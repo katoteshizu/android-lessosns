@@ -1,8 +1,12 @@
 package ru.startandroid.p0001androidstudy.bitmap;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.util.Log;
+import android.view.Display;
+import android.view.WindowManager;
 
 import com.bumptech.glide.Glide;
 
@@ -41,5 +45,20 @@ public class BitmapUtility {
         } else {
             Utilities.logW(TAG, "File already exists.");
         }
+    }
+
+    public static Point getScreenSize(Context context) {
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = windowManager.getDefaultDisplay();
+        final Point point = new Point();
+
+        display.getSize(point);
+
+        return point;
+    }
+
+    public static Point getBackgroundImageSize(Activity activity) {
+        Point displaySize = getScreenSize(activity);
+        return new Point(displaySize.x, displaySize.y);
     }
 }

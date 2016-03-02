@@ -17,9 +17,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".PersonsListActivity"
-            android:label="List of Persons"/>
+            android:label="List of Persons"
+            android:configChanges="orientation|screenSize"/>
         <activity android:name=".AddressListActivity"
-            android:label="List of Addresses"/>
+            android:label="List of Addresses"
+            android:configChanges="orientation|screenSize"/>
         <meta-data android:name="ru.startandroid.p0001androidstudy.glide.AppGlideModule"
             android:value="GlideModule"/>
     </application>

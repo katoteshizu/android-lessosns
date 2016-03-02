@@ -128,7 +128,6 @@ public class PersonDetailsFragment extends DialogFragment implements View.OnClic
                 }
             });
         }
-        getDialog().setCancelable(false);
         long end = System.currentTimeMillis();
         Utilities.logD(TAG, "Get_ details view: " + (end - start));
         return v;

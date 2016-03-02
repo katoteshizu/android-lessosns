@@ -21,8 +21,8 @@ public class PersonsListActivity extends ListActivity<Person> {
     private final static String TAG = PersonsListActivity.class.getSimpleName();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initListView() {
+        super.initListView();
 
         itemsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -68,6 +68,7 @@ public class PersonsListActivity extends ListActivity<Person> {
     @Override
     protected void handleOnAddNewEntry(@Nullable Person person) {
         PersonDetailsFragment stateDetailsDialogue = new PersonDetailsFragment();
+        stateDetailsDialogue.setCancelable(false);
         if (person == null) {
             stateDetailsDialogue.show(new Person(), personListener, getSupportFragmentManager(), "stateDetailsDialogue");
         } else {

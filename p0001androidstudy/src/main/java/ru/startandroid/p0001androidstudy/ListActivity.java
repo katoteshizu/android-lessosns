@@ -1,20 +1,29 @@
 package ru.startandroid.p0001androidstudy;
 
+import android.content.res.Configuration;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.LinkedList;
 import java.util.List;
 
+import ru.startandroid.p0001androidstudy.bitmap.BitmapUtility;
+
 /**
- * @authored by Andrew on 2/29/2016.
+ * @author by Andrew on 2/29/2016.
  */
 public abstract class ListActivity<P> extends AppActivity {
 
@@ -30,10 +39,40 @@ public abstract class ListActivity<P> extends AppActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.listitems);
+        alignForOrientation(getResources().getConfiguration().orientation);
+    }
+
+    protected void initListView() {
         itemsList = (ListView) findViewById(R.id.itemsList);
         adapter = getAdapter(getAllData());
         itemsList.setAdapter(adapter);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        alignForOrientation(newConfig.orientation);
+    }
+
+    private void alignForOrientation(int screenOrientation) {
+
+        if (screenOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+            View rootView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.listitems_land, null);
+            FrameLayout leftContainer = (FrameLayout) rootView.findViewById(R.id.left_panel_container);
+
+            Point displaySize = BitmapUtility.getScreenSize(this);
+            leftContainer.setLayoutParams(new LinearLayout.LayoutParams(
+                    displaySize.x / 3,
+                    ViewGroup.LayoutParams.MATCH_PARENT));
+
+            View listLayout = LayoutInflater.from(getApplicationContext()).inflate(R.layout.listitems, null);
+            leftContainer.addView(listLayout);
+            setContentView(rootView);
+        } else if (screenOrientation == Configuration.ORIENTATION_PORTRAIT) {
+            setContentView(R.layout.listitems);
+        }
+
+        initListView();
     }
 
     @CallSuper

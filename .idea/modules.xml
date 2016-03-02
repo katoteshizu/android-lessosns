@@ -39,6 +39,7 @@
       <module fileurl="file://$PROJECT_DIR$/p0361sqlitequery/p0361sqlitequery.iml" filepath="$PROJECT_DIR$/p0361sqlitequery/p0361sqlitequery.iml" />
       <module fileurl="file://$PROJECT_DIR$/p0371sqliteinnerjoin/p0371sqliteinnerjoin.iml" filepath="$PROJECT_DIR$/p0371sqliteinnerjoin/p0371sqliteinnerjoin.iml" />
       <module fileurl="file://$PROJECT_DIR$/p0381sqlitetransaction/p0381sqlitetransaction.iml" filepath="$PROJECT_DIR$/p0381sqlitetransaction/p0381sqlitetransaction.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p1151multiplescreen/p1151multiplescreen.iml" filepath="$PROJECT_DIR$/p1151multiplescreen/p1151multiplescreen.iml" />
     </modules>
   </component>
 </project>
