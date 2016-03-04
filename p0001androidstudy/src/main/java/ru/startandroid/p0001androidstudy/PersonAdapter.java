@@ -14,19 +14,18 @@ import com.bumptech.glide.Glide;
 
 import java.io.File;
 import java.util.List;
-import java.util.Objects;
 
-import ru.startandroid.p0001androidstudy.bitmap.BitmapUtility;
 import ru.startandroid.p0001androidstudy.model.Person;
 
 /**
- * Created by Work on 2/4/2016.
+ * @author Andrew on 2/4/2016.
  */
 
 public class PersonAdapter extends BaseAdapter {
 
     public static final int IMAGE_WIDTH = 100;
     public static final int IMAGE_HEIGHT = 150;
+    private final static String TAG = PersonAdapter.class.getSimpleName();
     private LayoutInflater lInflater;
     private SparseArray<Person> persons = new SparseArray<>();
     private Context context;
@@ -74,13 +73,15 @@ public class PersonAdapter extends BaseAdapter {
 
         if (view == null) {
             view = lInflater.inflate(R.layout.itemrow, parent, false);
+            view.setBackgroundResource(R.drawable.item_background);
         }
 
         Person p = getPerson(position);
+
         if (p != null) {
             TextView personNameView = (TextView) view.findViewById(R.id.tvPersonName);
             TextView emailView = (TextView) view.findViewById(R.id.tvPersonEmail);
-            personNameView.setText(p.id + " | " + p.name);
+            personNameView.setText(p.name);
             emailView.setText(p.email);
             ImageView personFace = (ImageView) view.findViewById(R.id.ivImage);
 
@@ -88,7 +89,8 @@ public class PersonAdapter extends BaseAdapter {
                 File faceFile = new File(p.fileName);
                 if (faceFile.exists()) {
                     Glide.with(context).load(faceFile).override(IMAGE_WIDTH, IMAGE_HEIGHT).into(personFace);
-                } else Glide.with(context).load(R.drawable.no_img).override(IMAGE_WIDTH, IMAGE_HEIGHT).centerCrop().into(personFace);
+                } else
+                    Glide.with(context).load(R.drawable.no_img).override(IMAGE_WIDTH, IMAGE_HEIGHT).centerCrop().into(personFace);
             } else {
                 Glide.with(context).load(R.drawable.no_img).override(IMAGE_WIDTH, IMAGE_HEIGHT).centerCrop().into(personFace);
             }

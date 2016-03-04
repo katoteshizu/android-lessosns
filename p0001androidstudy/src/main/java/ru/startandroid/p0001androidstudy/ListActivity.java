@@ -15,7 +15,6 @@ import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -59,14 +58,22 @@ public abstract class ListActivity<P> extends AppActivity {
         if (screenOrientation == Configuration.ORIENTATION_LANDSCAPE) {
             View rootView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.listitems_land, null);
             FrameLayout leftContainer = (FrameLayout) rootView.findViewById(R.id.left_panel_container);
+            FrameLayout rightContainer = (FrameLayout) rootView.findViewById(R.id.right_panel_container);
 
             Point displaySize = BitmapUtility.getScreenSize(this);
             leftContainer.setLayoutParams(new LinearLayout.LayoutParams(
                     displaySize.x / 3,
                     ViewGroup.LayoutParams.MATCH_PARENT));
 
+            rightContainer.setLayoutParams(new LinearLayout.LayoutParams(
+                    2 * displaySize.x / 3,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+            ));
+
             View listLayout = LayoutInflater.from(getApplicationContext()).inflate(R.layout.listitems, null);
+            View detailsLayout = LayoutInflater.from(getApplicationContext()).inflate(R.layout.details_dialogue, null);
             leftContainer.addView(listLayout);
+            rightContainer.addView(detailsLayout);
             setContentView(rootView);
         } else if (screenOrientation == Configuration.ORIENTATION_PORTRAIT) {
             setContentView(R.layout.listitems);
@@ -87,7 +94,6 @@ public abstract class ListActivity<P> extends AppActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-//                Toast.makeText(getApplicationContext(), "Search query onQueryTextSubmit: " + query, Toast.LENGTH_SHORT).show();
                 if (!searchView.isIconified()) {
                     searchView.setIconified(true);
                 }
@@ -98,13 +104,11 @@ public abstract class ListActivity<P> extends AppActivity {
                 clearSearch.setVisible(true);
                 addAction.setVisible(false);
                 searchAction.setVisible(false);
-//                menu.setGroupVisible(R.id.group_clear_search, true);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                Toast.makeText(getApplicationContext(), "Search query onQueryTextChange: " + newText, Toast.LENGTH_SHORT).show();
                 return false;
             }
         });

@@ -14,4 +14,5 @@
     <string name="tv_address_street_label">Street</string>
     <string name="tv_address_building_label">Building:</string>
     <string name="tv_address_block_label">Block:</string>
+    <string name="image_description">Image description</string>
 </resources>

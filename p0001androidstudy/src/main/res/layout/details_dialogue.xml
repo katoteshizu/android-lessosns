@@ -4,25 +4,39 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView1"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="20dp"
-        android:text="@string/person_dialog_text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_gravity="center">
+
+        <ImageButton
+            android:id="@+id/btnAddresses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:src="@android:drawable/ic_menu_myplaces" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:text="@string/person_dialog_text"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/ivFace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxWidth="96dp"
-        android:maxHeight="96dp"
+        android:layout_gravity="center"
         android:adjustViewBounds="true"
+        android:contentDescription="@string/image_description"
+        android:maxHeight="96dp"
+        android:maxWidth="96dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/no_img"
-        android:layout_gravity="center" />
+        android:src="@drawable/no_img" />
 
     <EditText
         android:id="@+id/editTextPerson"
@@ -31,6 +45,7 @@
         android:layout_gravity="center"
         android:layout_margin="20dp"
         android:imeOptions="actionNext"
+        android:inputType="text"
         android:singleLine="true"
         android:text="" />
 
@@ -41,8 +56,8 @@
         android:layout_gravity="center"
         android:layout_margin="20dp"
         android:ems="10"
-        android:inputType="textEmailAddress"
         android:imeOptions="actionDone"
+        android:inputType="textEmailAddress"
         android:singleLine="true"
         android:text="" />
 
@@ -56,6 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:padding="10dp"
             android:text="@string/yes" />
 
         <Button
@@ -63,6 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:padding="10dp"
             android:text="@string/no" />
     </LinearLayout>
 </LinearLayout>
