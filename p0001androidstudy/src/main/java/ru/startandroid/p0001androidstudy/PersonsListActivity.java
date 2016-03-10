@@ -15,6 +15,7 @@ import utilities.Utilities;
 /**
  * @author by Andrew on 2/4/2016.
  */
+
 public class PersonsListActivity extends ListActivity<Person> {
 
     private final static String TAG = PersonsListActivity.class.getSimpleName();
@@ -34,7 +35,6 @@ public class PersonsListActivity extends ListActivity<Person> {
         itemsList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-//                Toast.makeText(getApplicationContext(), "Long press at: " + position + " id: " + id, Toast.LENGTH_SHORT).show();
                 Person selectedPerson = (Person) parent.getAdapter().getItem(position);
 
                 PopupMenuFragment popupMenuFragment = new PopupMenuFragment();

@@ -18,9 +18,12 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,18 +31,22 @@ import com.bumptech.glide.Glide;
 
 import java.io.File;
 
+import ru.startandroid.p0001androidstudy.bitmap.BitmapUtility;
 import ru.startandroid.p0001androidstudy.model.Person;
 import utilities.Utilities;
 
 /**
- * Created by Work on 2/4/2016.
+ * @author Andrew on 2/4/2016.
  */
 
 public class PersonDetailsFragment extends DialogFragment implements View.OnClickListener {
 
     private final static String TAG = PersonDetailsFragment.class.getSimpleName();
     private static final int CAMERA_REQUEST = 1888;
-    public final static String PREVIEW_PATH = "preview";
+    private static final int mDialogHeight = 460;
+    private static final int mDialogWidth = 400;
+
+    private float scale;
     @Nullable
     private PersonListener personListener;
     @Nullable
@@ -47,14 +54,19 @@ public class PersonDetailsFragment extends DialogFragment implements View.OnClic
 
     Button buttonSave;
     Button buttonCancel;
+    ImageButton buttonSwitchDetails;
     EditText personEditText;
     EditText personEditEmail;
     ImageView personEditFace;
+    TextView tvDetailsHeader;
+    ListView lvPersonAddresses;
     ProgressDialog saveDialog;
     Context context;
     Resources resources;
+    boolean personDetailsMode = true;
     @Nullable
     private Bitmap photo;
+    private BaseAdapter adapter;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,9 +82,12 @@ public class PersonDetailsFragment extends DialogFragment implements View.OnClic
             buttonSave.setOnClickListener(this);
             buttonCancel = (Button) v.findViewById(R.id.btnNo);
             buttonCancel.setOnClickListener(this);
-
+            buttonSwitchDetails = (ImageButton) v.findViewById(R.id.btnAddresses);
+            buttonSwitchDetails.setOnClickListener(this);
             personEditFace = (ImageView) v.findViewById(R.id.ivFace);
             personEditFace.setOnClickListener(this);
+            tvDetailsHeader = (TextView) v.findViewById(R.id.tvPersonHeader);
+            lvPersonAddresses = (ListView) v.findViewById(R.id.lvPersonAddresses);
 
             saveDialog = new ProgressDialog(getContext());
             context = getContext();
@@ -130,7 +145,15 @@ public class PersonDetailsFragment extends DialogFragment implements View.OnClic
         }
         long end = System.currentTimeMillis();
         Utilities.logD(TAG, "Get_ details view: " + (end - start));
+        scale = getContext().getResources().getDisplayMetrics().density;
         return v;
+    }
+
+    public void onStart() {
+        super.onStart();
+        int dpsWidth = BitmapUtility.pixelsToDPS(mDialogWidth, scale);
+        int dpsHeight = BitmapUtility.pixelsToDPS(mDialogHeight, scale);
+        if (getDialog() != null) getDialog().getWindow().setLayout(dpsWidth, dpsHeight);
     }
 
     public void onClick(View v) {
@@ -184,6 +207,29 @@ public class PersonDetailsFragment extends DialogFragment implements View.OnClic
                 Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(cameraIntent, CAMERA_REQUEST);
                 break;
+            case R.id.btnAddresses:
+                Utilities.logD(TAG, "Switch button pressed");
+                switchPersonDetails();
+                break;
+        }
+    }
+
+    private void switchPersonDetails() {
+        if (personDetailsMode) {
+            tvDetailsHeader.setText(getString(R.string.person_addresses), TextView.BufferType.NORMAL);
+            personEditFace.setVisibility(View.GONE);
+            personEditText.setVisibility(View.GONE);
+            personEditEmail.setVisibility(View.GONE);
+            lvPersonAddresses.setVisibility(View.GONE);
+            personDetailsMode = false;
+        } else {
+            tvDetailsHeader.setText(getString(R.string.person_dialog_text), TextView.BufferType.NORMAL);
+            personEditFace.setVisibility(View.VISIBLE);
+            personEditText.setVisibility(View.VISIBLE);
+            personEditEmail.setVisibility(View.VISIBLE);
+            lvPersonAddresses.setVisibility(View.VISIBLE);
+//            adapter = new AddressAdapter(getContext(), getPersonAddresses(person.id));
+            personDetailsMode = true;
         }
     }
 

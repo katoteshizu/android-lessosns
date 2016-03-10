@@ -16,7 +16,7 @@ import java.io.FileOutputStream;
 import utilities.Utilities;
 
 /**
- * Created by Work on 2/5/2016.
+ * @author Andrew on 2/5/2016.
  */
 public class BitmapUtility {
 
@@ -61,4 +61,10 @@ public class BitmapUtility {
         Point displaySize = getScreenSize(activity);
         return new Point(displaySize.x, displaySize.y);
     }
+
+    public static int pixelsToDPS(int dps, float scale) {
+        int pixels = (int) (dps * scale + 0.5f);
+        return pixels;
+    }
+
 }

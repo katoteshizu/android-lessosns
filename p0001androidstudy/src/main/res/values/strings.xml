@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Android Study</string>
     <string name="person_dialog_text">Person details:</string>
+    <string name="person_addresses">Person addresses:</string>
     <string name="address_dialog_text">Address details:</string>
     <string name="yes">Save</string>
     <string name="no">Cancel</string>

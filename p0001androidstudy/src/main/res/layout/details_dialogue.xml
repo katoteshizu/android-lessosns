@@ -1,30 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tvPersonHeader"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
-
-        <ImageButton
-            android:id="@+id/btnAddresses"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:src="@android:drawable/ic_menu_myplaces" />
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="20dp"
-            android:text="@string/person_dialog_text"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-    </LinearLayout>
+        android:layout_height="@dimen/textedit_hight"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/vertical_margin"
+        android:gravity="center"
+        android:text="@string/person_dialog_text"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="@dimen/title_size" />
 
     <ImageView
         android:id="@+id/ivFace"
@@ -33,53 +22,68 @@
         android:layout_gravity="center"
         android:adjustViewBounds="true"
         android:contentDescription="@string/image_description"
-        android:maxHeight="96dp"
-        android:maxWidth="96dp"
+        android:maxHeight="@dimen/item_height"
+        android:maxWidth="@dimen/item_width"
         android:scaleType="fitCenter"
         android:src="@drawable/no_img" />
 
     <EditText
         android:id="@+id/editTextPerson"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/textedit_width"
+        android:layout_height="@dimen/textedit_hight"
         android:layout_gravity="center"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/vertical_margin"
+        android:gravity="center"
         android:imeOptions="actionNext"
         android:inputType="text"
         android:singleLine="true"
-        android:text="" />
+        android:textSize="@dimen/text_size" />
 
     <EditText
         android:id="@+id/editTextEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/textedit_width"
+        android:layout_height="@dimen/textedit_hight"
         android:layout_gravity="center"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/vertical_margin"
         android:ems="10"
+        android:gravity="center"
         android:imeOptions="actionDone"
         android:inputType="textEmailAddress"
         android:singleLine="true"
-        android:text="" />
+        android:textSize="@dimen/text_size" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/lvPersonAddresses" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_gravity="end">
 
-        <Button
-            android:id="@+id/btnYes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:padding="10dp"
-            android:text="@string/yes" />
+        <ImageButton
+            android:id="@+id/btnAddresses"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="@dimen/button_heght"
+            android:layout_margin="@dimen/horizontal_margin"
+            android:contentDescription="@string/app_name"
+            android:src="@android:drawable/ic_menu_myplaces" />
 
         <Button
             android:id="@+id/btnNo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:padding="10dp"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="@dimen/button_heght"
+            android:layout_margin="@dimen/horizontal_margin"
+            android:padding="@dimen/item_padding"
             android:text="@string/no" />
+
+        <Button
+            android:id="@+id/btnYes"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="@dimen/button_heght"
+            android:layout_margin="@dimen/horizontal_margin"
+            android:padding="@dimen/item_padding"
+            android:text="@string/yes" />
     </LinearLayout>
 </LinearLayout>
