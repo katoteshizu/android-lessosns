@@ -25,11 +25,13 @@ public class PreparePersonTask {
     private String personName;
     private String personEmail;
     private Bitmap personPhoto;
+    private int addressID;
     private TestApplication testApplication;
 
     private Context context;
 
-    public PreparePersonTask(Context context, TestApplication testApplication, long id, String name, String email, String imagePath, Bitmap photo) {
+    public PreparePersonTask(Context context, TestApplication testApplication, long id, String name,
+                             String email, String imagePath, Bitmap photo, int addressID) {
         this.context = context;
         this.testApplication = testApplication;
         this.personID = id;
@@ -37,13 +39,14 @@ public class PreparePersonTask {
         this.personName = name;
         this.personEmail = email;
         this.personPhoto = photo;
+        this.addressID = addressID;
     }
 
     public Person getPerson() {
         if (personPhoto != null) {
             personImagePath = getImagePath(personPhoto);
         }
-        return new Person(personID, personImagePath, personName, personEmail);
+        return new Person(personID, personImagePath, personName, personEmail, addressID);
     }
 
     private String getImagePath(Bitmap photo) {

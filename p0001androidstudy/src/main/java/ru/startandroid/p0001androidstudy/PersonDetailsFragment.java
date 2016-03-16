@@ -30,8 +30,10 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import java.io.File;
+import java.util.List;
 
 import ru.startandroid.p0001androidstudy.bitmap.BitmapUtility;
+import ru.startandroid.p0001androidstudy.model.Address;
 import ru.startandroid.p0001androidstudy.model.Person;
 import utilities.Utilities;
 
@@ -88,7 +90,7 @@ public class PersonDetailsFragment extends DialogFragment implements View.OnClic
             personEditFace.setOnClickListener(this);
             tvDetailsHeader = (TextView) v.findViewById(R.id.tvPersonHeader);
             lvPersonAddresses = (ListView) v.findViewById(R.id.lvPersonAddresses);
-
+            lvPersonAddresses.setVisibility(View.GONE);
             saveDialog = new ProgressDialog(getContext());
             context = getContext();
             resources = context.getResources();
@@ -172,7 +174,7 @@ public class PersonDetailsFragment extends DialogFragment implements View.OnClic
                         public void run() {
                             PreparePersonTask preparePersonTask = new PreparePersonTask(getContext(),
                                     getTestApplication(), person.id, personEditText.getText().toString(),
-                                    email.toString(), person.fileName, photo);
+                                    email.toString(), person.fileName, photo, person.addressID);
                             final Person personToSave = preparePersonTask.getPerson();
 
                             Handler handler = new Handler(Looper.getMainLooper());
@@ -220,17 +222,22 @@ public class PersonDetailsFragment extends DialogFragment implements View.OnClic
             personEditFace.setVisibility(View.GONE);
             personEditText.setVisibility(View.GONE);
             personEditEmail.setVisibility(View.GONE);
-            lvPersonAddresses.setVisibility(View.GONE);
+            adapter = new AddressAdapter(getContext(), findAddress(person.addressID));
+            lvPersonAddresses.setAdapter(adapter);
+            lvPersonAddresses.setVisibility(View.VISIBLE);
             personDetailsMode = false;
         } else {
             tvDetailsHeader.setText(getString(R.string.person_dialog_text), TextView.BufferType.NORMAL);
             personEditFace.setVisibility(View.VISIBLE);
             personEditText.setVisibility(View.VISIBLE);
             personEditEmail.setVisibility(View.VISIBLE);
-            lvPersonAddresses.setVisibility(View.VISIBLE);
-//            adapter = new AddressAdapter(getContext(), getPersonAddresses(person.id));
+            lvPersonAddresses.setVisibility(View.GONE);
             personDetailsMode = true;
         }
+    }
+
+    private List<Address> findAddress(int addressID) {
+        return getTestApplication().getAddressDao().findAddressById(addressID);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

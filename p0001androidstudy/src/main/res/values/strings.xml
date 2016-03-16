@@ -12,7 +12,7 @@
     <string name="saving_dialog_text">Saving…</string>
     <string name="action_search">Search</string>
     <string name="action_clear_search">Clear</string>
-    <string name="tv_address_street_label">Street</string>
+    <string name="tv_address_street_label">Street:</string>
     <string name="tv_address_building_label">Building:</string>
     <string name="tv_address_block_label">Block:</string>
     <string name="image_description">Image description</string>

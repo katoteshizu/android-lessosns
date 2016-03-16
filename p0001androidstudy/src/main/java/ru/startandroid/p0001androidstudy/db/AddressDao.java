@@ -76,6 +76,17 @@ public class AddressDao {
         return extractDataFromCursor(cursor);
     }
 
+    @Nullable
+    public List<Address> findAddressById(int id) {
+        return searchAddressesByColumn(String.valueOf(id));
+    }
+
+    @NonNull
+    public List<Address> searchAddressesByColumn(@NonNull String value) {
+        Cursor cursor = sqLiteDatabase.query(TABLE, null, "_ID = ?", new String[]{value}, null, null, null);
+        return extractDataFromCursor(cursor);
+    }
+
     private long insertOrReplace(@NonNull Address address) {
         long id;
         sqLiteDatabase.beginTransaction();
@@ -136,15 +147,12 @@ public class AddressDao {
 
     public boolean hasAddresses() {
         Cursor cursor = sqLiteDatabase.rawQuery("select count(*) from " + TABLE, null);
-        if (cursor.moveToFirst()) {
-            return cursor.getInt(0) > 0;
-        }
-        return false;
+        return cursor.moveToFirst() && cursor.getInt(0) > 0;
     }
 
 
     @NonNull
-    public List<Address> searchAddresses(String pattern){
+    public List<Address> searchAddresses(String pattern) {
         String query = "SELECT * FROM " + TABLE + " WHERE " + ADDRESS_STREET + " LIKE '%" + pattern + "%'";
         Cursor cursor = sqLiteDatabase.rawQuery(query, null);
         return extractDataFromCursor(cursor);

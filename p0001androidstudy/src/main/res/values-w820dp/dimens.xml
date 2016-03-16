@@ -2,5 +2,28 @@
     <!-- Example customization of dimensions originally defined in res/values/dimens.xml
          (such as screen margins) for screens with more than 820dp of available width. This
          would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively). -->
+    <dimen name="title_size">32sp</dimen>
+    <dimen name="text_size">24sp</dimen>
+    <dimen name="list_land_text_size">18sp</dimen>
+
     <dimen name="activity_horizontal_margin">64dp</dimen>
+
+    <dimen name="textedit_hight">48dp</dimen>
+    <dimen name="textedit_width">240dp</dimen>
+
+    <dimen name="button_heght">48dp</dimen>
+    <dimen name="button_width">96dp</dimen>
+
+    <dimen name="item_height">96dp</dimen>
+    <dimen name="item_width">96dp</dimen>
+
+    <dimen name="listview_item_height">48dp</dimen>
+    <dimen name="list_view_item_width">48dp</dimen>
+
+    <dimen name="item_padding">10dp</dimen>
+
+    <dimen name="vertical_margin">10dp</dimen>
+    <dimen name="horizontal_margin">10dp</dimen>
+
+    <dimen name="dialog_listview_height">232dp</dimen>
 </resources>

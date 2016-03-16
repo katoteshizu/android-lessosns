@@ -1,7 +1,9 @@
 package ru.startandroid.p0001androidstudy;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,7 +75,16 @@ public class PersonAdapter extends BaseAdapter {
 
         if (view == null) {
             view = lInflater.inflate(R.layout.itemrow, parent, false);
-            view.setBackgroundResource(R.drawable.item_background);
+        }
+
+        if ((position % 2) == 1) {
+            view.setBackgroundColor(Color.WHITE);
+        } else {
+            view.setBackgroundColor(ContextCompat.getColor(context, R.color.colorGreyMy));
+        }
+
+        if (view.isActivated()) {
+            view.setBackgroundColor(ContextCompat.getColor(context, R.color.colorHighlightMy));
         }
 
         Person p = getPerson(position);

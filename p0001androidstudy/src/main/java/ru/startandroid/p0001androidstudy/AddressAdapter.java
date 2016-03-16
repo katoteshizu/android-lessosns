@@ -58,7 +58,7 @@ public class AddressAdapter extends BaseAdapter {
             TextView addressStreet = (TextView) view.findViewById(R.id.tvAddressStreet);
             TextView addressBuilding = (TextView) view.findViewById(R.id.tvAddressBuilding);
             TextView addressBlock = (TextView) view.findViewById(R.id.tvAddressBlock);
-            addressStreet.setText(p.id + ": " + p.street);
+            addressStreet.setText(p.street);
             addressBuilding.setText(String.valueOf(p.building));
             addressBlock.setText(String.valueOf(p.block));
         }

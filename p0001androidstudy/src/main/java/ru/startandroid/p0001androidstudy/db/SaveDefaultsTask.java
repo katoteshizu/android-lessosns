@@ -25,17 +25,17 @@ public class SaveDefaultsTask {
 
     static {
         personList = new LinkedList<>();
-        personList.add(new PersonDefaultData(R.drawable.face, "Uno", "qwerty@g.com"));
-        personList.add(new PersonDefaultData(R.drawable.face_0000, "Duos", "qwerty@g.com"));
-        personList.add(new PersonDefaultData(R.drawable.face_0001, "Tres", "qwerty@g.com"));
-        personList.add(new PersonDefaultData(R.drawable.face_0002, "Quatro", "qwerty@g.com"));
-        personList.add(new PersonDefaultData(R.drawable.face_0003, "Quinque", "qwerty@g.com"));
-        personList.add(new PersonDefaultData(R.drawable.face_0004, "Sex", "qwerty@g.com"));
-        personList.add(new PersonDefaultData(R.drawable.face, "Septem", "qwerty@g.com"));
-        personList.add(new PersonDefaultData(R.drawable.face_0001, "Octo", "qwerty@g.com"));
-        personList.add(new PersonDefaultData(R.drawable.face_0002, "Novem", "qwerty@g.com"));
-        personList.add(new PersonDefaultData(R.drawable.face_0003, "Decem", "qwerty@g.com"));
-        personList.add(new PersonDefaultData(R.drawable.face_0004, "Undecim", "qwerty@g.com"));
+        personList.add(new PersonDefaultData(R.drawable.face, "Uno", "qwerty@g.com", 1));
+        personList.add(new PersonDefaultData(R.drawable.face_0000, "Duos", "qwerty@g.com", 2));
+        personList.add(new PersonDefaultData(R.drawable.face_0001, "Tres", "qwerty@g.com", 3));
+        personList.add(new PersonDefaultData(R.drawable.face_0002, "Quatro", "qwerty@g.com", 4));
+        personList.add(new PersonDefaultData(R.drawable.face_0003, "Quinque", "qwerty@g.com", 5));
+        personList.add(new PersonDefaultData(R.drawable.face_0004, "Sex", "qwerty@g.com", 6));
+        personList.add(new PersonDefaultData(R.drawable.face, "Septem", "qwerty@g.com", 1));
+        personList.add(new PersonDefaultData(R.drawable.face_0001, "Octo", "qwerty@g.com", 1));
+        personList.add(new PersonDefaultData(R.drawable.face_0002, "Novem", "qwerty@g.com", 1));
+        personList.add(new PersonDefaultData(R.drawable.face_0003, "Decem", "qwerty@g.com", 2));
+        personList.add(new PersonDefaultData(R.drawable.face_0004, "Undecim", "qwerty@g.com", 2));
 
         addressList = new LinkedList<>();
         addressList.add(new AddressDefaultData("Liberty", 14, 1));
@@ -75,7 +75,7 @@ public class SaveDefaultsTask {
 
             BitmapUtility.convertImage(context, faceID, null, faceFile);
 
-            Person newPerson = new Person(PersonDao.NULL_LONG, filePath, person.name, person.email);
+            Person newPerson = new Person(PersonDao.NULL_LONG, filePath, person.name, person.email, person.addressID);
             personDao.save(newPerson);
         }
 
@@ -89,11 +89,13 @@ public class SaveDefaultsTask {
         public int face;
         public String name;
         public String email;
+        public int addressID;
 
-        public PersonDefaultData(int face, String name, String email) {
+        public PersonDefaultData(int face, String name, String email, int addressID) {
             this.face = face;
             this.name = name;
             this.email = email;
+            this.addressID = addressID;
         }
     }
 

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:background="@drawable/item_background"
-    android:layout_height="62dp" android:padding="10dp">
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="68dp"
+    android:padding="10dp">
     <ImageView
         android:id="@+id/ivImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/list_view_item_width"
+        android:layout_height="@dimen/listview_item_height"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter">
     </ImageView>
@@ -15,6 +16,8 @@
         android:id="@+id/tvPersonName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorBlackMy"
+        android:textSize="@dimen/list_land_text_size"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"/>
 
@@ -22,6 +25,8 @@
         android:id="@+id/tvPersonEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorBlackMy"
+        android:textSize="@dimen/list_land_text_size"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"/>
 </LinearLayout>

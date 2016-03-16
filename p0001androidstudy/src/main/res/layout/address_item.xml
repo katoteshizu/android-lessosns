@@ -4,23 +4,51 @@
     android:layout_height="62dp" android:padding="10dp">
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/list_land_text_size"
+        android:text="@string/tv_address_street_label" />
+
+    <TextView
         android:id="@+id/tvAddressStreet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorBlackMy"
+        android:textSize="@dimen/list_land_text_size"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="@dimen/list_land_text_size"
+        android:text="@string/tv_address_building_label" />
 
     <TextView
         android:id="@+id/tvAddressBuilding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorBlackMy"
+        android:textSize="@dimen/list_land_text_size"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="@dimen/list_land_text_size"
+        android:text="@string/tv_address_block_label" />
 
     <TextView
         android:id="@+id/tvAddressBlock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorBlackMy"
+        android:textSize="@dimen/list_land_text_size"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"/>
 </LinearLayout>

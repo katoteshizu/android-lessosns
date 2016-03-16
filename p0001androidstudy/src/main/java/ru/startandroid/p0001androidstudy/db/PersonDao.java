@@ -23,6 +23,7 @@ public class PersonDao {
     private static final String PERSON_NAME = "PERSON_NAME";
     private static final String PERSON_EMAIL = "PERSON_EMAIL";
     private static final String IMAGE_PATH = "IMAGE_PATH";
+    private static final String ADDRESS_ID = "ADDRESS_ID";
     public static final long NULL_LONG = -1l;
 
     public PersonDao(SQLiteDatabase sqLiteDatabase) {
@@ -35,6 +36,7 @@ public class PersonDao {
         contentValues.put(PERSON_NAME, person.name);
         contentValues.put(PERSON_EMAIL, person.email);
         contentValues.put(IMAGE_PATH, person.fileName);
+        contentValues.put(ADDRESS_ID, person.addressID);
 
         return contentValues;
     }
@@ -120,6 +122,7 @@ public class PersonDao {
         person.name = cursor.getString(1);
         person.email = cursor.getString(2);
         person.fileName = cursor.getString(3);
+        person.addressID = cursor.getInt(4);
 
         return person;
     }
@@ -144,9 +147,6 @@ public class PersonDao {
 
     public boolean hasPersons() {
         Cursor cursor = sqLiteDatabase.rawQuery("select count(*) from " + TABLE, null);
-        if (cursor.moveToFirst()) {
-            return cursor.getInt(0) > 0;
-        }
-        return false;
+        return cursor.moveToFirst() && cursor.getInt(0) > 0;
     }
 }
